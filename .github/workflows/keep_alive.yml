@@ -1,0 +1,24 @@
+name: Keep Alive Render
+
+on:
+  schedule:
+    # Esegue ogni 10 minuti (Render free tier va in standby dopo 15 minuti di inattività)
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    name: Ping Render Instance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send HTTP Ping
+        run: |
+          URL="https://pordenone-rebel-feed.onrender.com/healthz"
+          echo "Sending keep-alive ping to $URL..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+          echo "Response code: $HTTP_STATUS"
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "Render service is awake and running smoothly!"
+          else
+            echo "Status $HTTP_STATUS received. Instance might be starting up or building."
+          fi

@@ -37,6 +37,11 @@ is_syncing = False
 def startup_event():
     database.init_db()
 
+@app.get("/healthz")
+@app.get("/api/health")
+def healthz():
+    return {"status": "ok", "service": "pordenone-rebel-feed"}
+
 @app.get("/")
 def serve_home():
     index_file = os.path.join(STATIC_DIR, "index.html")
