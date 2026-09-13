@@ -135,15 +135,17 @@ def extract_posts_from_page(page: Page, assoc_name: str, max_scrolls: int = 8) -
 
                 content_lines = []
                 for line in lines:
-                    if line in [assoc_name, "Condividi", "Mi piace", "Commenta", "·", "Tutte le reazioni:"]:
+                    line_s = line.strip()
+                    # Stop appena iniziano reazioni, pulsanti di interazione o la sezione commenti
+                    if re.search(r'^(Tutte le reazioni|Reazioni|Commenti:|Condivisioni:|Mi piace|Commenta|Condividi|Più pertinenti|Visualizza altri commenti|Visualizza commenti|Visualizza altre risposte)', line_s, re.I):
+                        break
+                    if line_s in [assoc_name, "·", "•", "Altro...", "Visualizza altro"] or line_s == date_str:
                         continue
-                    if line.startswith("Condivisioni:") or line.startswith("Commenti:") or line == date_str:
+                    if re.match(r'^\d+$', line_s):
                         continue
-                    if re.match(r'^\d+$', line):
-                        continue
-                    content_lines.append(line)
+                    content_lines.append(line_s)
 
-                content_text = "\n".join(content_lines).strip()
+                content_text = "\n\n".join(content_lines).strip()
                 if not content_text:
                     content_text = full_text
 
