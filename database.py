@@ -2,7 +2,8 @@ import sqlite3
 import os
 from typing import List, Dict, Any, Optional
 
-DB_DIR = "/Users/stefanoraspa/.gemini/antigravity/scratch/associazioni_aggregator/data"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_DIR = os.path.join(BASE_DIR, "data")
 DB_PATH = os.path.join(DB_DIR, "database.db")
 
 def get_connection() -> sqlite3.Connection:
