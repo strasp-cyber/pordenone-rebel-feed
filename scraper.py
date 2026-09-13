@@ -18,6 +18,11 @@ PAGES_CONFIG = [
         "name": "Amici Zapatisti",
         "url": "https://www.facebook.com/amicizapatisti",
         "events_url": "https://www.facebook.com/amicizapatisti/events"
+    },
+    {
+        "name": "Biblioteca Mauro Cancian",
+        "url": "https://www.facebook.com/bibliomaurocancian",
+        "events_url": "https://www.facebook.com/bibliomaurocancian/events"
     }
 ]
 

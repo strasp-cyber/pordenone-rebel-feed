@@ -4,6 +4,7 @@ const STATIC_ASSETS = [
   '/static/manifest.json',
   '/static/img/iniziativalibertaria.jpg',
   '/static/img/amicizapatisti.jpg',
+  '/static/img/bibliomaurocancian.jpg',
   '/static/img/icon-192.png',
   '/static/img/icon-512.png',
   '/static/img/apple-touch-icon.png'

@@ -79,9 +79,10 @@ def generate_qr():
     draw.rectangle([0, 0, card_w, header_h], fill="#0F172A")
     draw.rectangle([0, header_h - 10, card_w, header_h], fill="#DC2626") # accento rosso
 
-    # Disegna i due loghi in cima
+    # Disegna i tre loghi in cima
     logo1 = Image.open(os.path.join(STATIC_IMG_DIR, "iniziativalibertaria.jpg")).convert("RGBA")
     logo2 = Image.open(os.path.join(STATIC_IMG_DIR, "amicizapatisti.jpg")).convert("RGBA")
+    logo3 = Image.open(os.path.join(STATIC_IMG_DIR, "bibliomaurocancian.jpg")).convert("RGBA")
     
     def make_round(img, size):
         img = img.resize((size, size), Image.Resampling.LANCZOS)
@@ -91,18 +92,20 @@ def generate_qr():
         res.putalpha(m)
         return res
 
-    thumb_size = 140
+    thumb_size = 115
     r_logo1 = make_round(logo1, thumb_size)
     r_logo2 = make_round(logo2, thumb_size)
+    r_logo3 = make_round(logo3, thumb_size)
     
-    # Contenitore circolare per i loghi
-    card.paste(r_logo1, (100, 90), r_logo1)
-    card.paste(r_logo2, (260, 90), r_logo2)
+    # Contenitore per i loghi affiancati
+    card.paste(r_logo1, (60, 100), r_logo1)
+    card.paste(r_logo2, (185, 100), r_logo2)
+    card.paste(r_logo3, (310, 100), r_logo3)
 
     # Testo Header
-    draw.text((440, 95), "PORDENONE REBEL FEED", fill="#FFFFFF", font=font_title)
-    draw.text((440, 175), "Bacheca Comunicati & Prossimi Eventi", fill="#CBD5E1", font=font_subtitle)
-    draw.text((440, 220), "Iniziativa Libertaria • Amici Zapatisti", fill="#EF4444", font=font_subtitle)
+    draw.text((450, 95), "PORDENONE REBEL FEED", fill="#FFFFFF", font=font_title)
+    draw.text((450, 165), "Bacheca Comunicati & Prossimi Eventi", fill="#CBD5E1", font=font_subtitle)
+    draw.text((450, 210), "Iniziativa Libertaria • Circolo Zapata • Biblioteca Cancian", fill="#EF4444", font=font_subtitle)
 
     # Box bianco centrale per il QR code
     box_w = 980

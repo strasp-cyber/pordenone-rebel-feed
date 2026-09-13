@@ -77,15 +77,16 @@
                 <!-- Brand / Logo -->
                 <div class="flex items-center gap-3">
                     <div class="flex items-center -space-x-2">
-                        <img src="/static/img/iniziativalibertaria.jpg" alt="Iniziativa Libertaria" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-md z-10">
-                        <img src="/static/img/amicizapatisti.jpg" alt="Amici Zapatisti" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-md">
+                        <img src="/static/img/iniziativalibertaria.jpg" alt="Iniziativa Libertaria" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-md z-20">
+                        <img src="/static/img/amicizapatisti.jpg" alt="Amici Zapatisti" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-md z-10">
+                        <img src="/static/img/bibliomaurocancian.jpg" alt="Biblioteca Mauro Cancian" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-md">
                     </div>
                     <div>
                         <h1 class="text-lg sm:text-xl font-extrabold font-display tracking-tight text-slate-900 flex items-center gap-2">
                             Pordenone Rebel Feed
-                            <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-red-100 text-red-700 rounded-full">Aggregatore</span>
+                            <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-red-100 text-red-700 rounded-full">Portale</span>
                         </h1>
-                        <p class="text-xs text-slate-500 hidden sm:block">Iniziativa Libertaria &bull; Circolo Zapata</p>
+                        <p class="text-xs text-slate-500 hidden sm:block">Iniziativa Libertaria &bull; Circolo Zapata &bull; Biblioteca Cancian</p>
                     </div>
                 </div>
 
@@ -120,33 +121,42 @@
                 </div>
             </div>
 
-            <!-- TABS PRINCIPALI (Bacheca vs Eventi) -->
-            <div class="flex border-t border-slate-100 sm:border-none gap-2 sm:gap-6 pt-2 sm:pt-0">
+            <!-- TABS PRINCIPALI (Bacheca, Eventi, Associazioni) -->
+            <div class="flex border-t border-slate-100 sm:border-none gap-1 sm:gap-6 pt-2 sm:pt-0 overflow-x-auto scrollbar-none">
                 <button @click="currentTab = 'posts'" 
                         :class="currentTab === 'posts' ? 'border-red-600 text-red-600 font-bold' : 'border-transparent text-slate-500 hover:text-slate-800 font-medium'"
-                        class="py-3 px-3 sm:px-4 text-sm sm:text-base border-b-2 transition flex items-center gap-2">
+                        class="py-3 px-2 sm:px-4 text-xs sm:text-base border-b-2 transition flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
                     <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                     </svg>
-                    Comunicati in Bacheca
-                    <span class="ml-1 px-2 py-0.5 text-xs rounded-full bg-slate-100 text-slate-600" x-text="posts.length"></span>
+                    Bacheca
+                    <span class="ml-1 px-1.5 py-0.5 text-[10px] sm:text-xs rounded-full bg-slate-100 text-slate-600" x-text="posts.length"></span>
                 </button>
 
                 <button @click="currentTab = 'events'" 
                         :class="currentTab === 'events' ? 'border-red-600 text-red-600 font-bold' : 'border-transparent text-slate-500 hover:text-slate-800 font-medium'"
-                        class="py-3 px-3 sm:px-4 text-sm sm:text-base border-b-2 transition flex items-center gap-2">
+                        class="py-3 px-2 sm:px-4 text-xs sm:text-base border-b-2 transition flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
                     <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    Prossimi Eventi
-                    <span class="ml-1 px-2 py-0.5 text-xs rounded-full bg-slate-100 text-slate-600" x-text="events.length"></span>
+                    Eventi
+                    <span class="ml-1 px-1.5 py-0.5 text-[10px] sm:text-xs rounded-full bg-slate-100 text-slate-600" x-text="events.length"></span>
+                </button>
+
+                <button @click="currentTab = 'associations'" 
+                        :class="currentTab === 'associations' ? 'border-red-600 text-red-600 font-bold' : 'border-transparent text-slate-500 hover:text-slate-800 font-medium'"
+                        class="py-3 px-2 sm:px-4 text-xs sm:text-base border-b-2 transition flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    Le Associazioni & Sede
                 </button>
             </div>
         </div>
     </header>
 
     <!-- CONTROLLI FILTRI & RICERCA -->
-    <section class="bg-white border-b border-slate-200 py-3 sm:py-4 shadow-sm">
+    <section x-show="currentTab !== 'associations'" class="bg-white border-b border-slate-200 py-3 sm:py-4 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <!-- Filtri per Associazione -->
@@ -155,7 +165,7 @@
                     <button @click="selectedAssoc = 'Tutte'; filterData()"
                             :class="selectedAssoc === 'Tutte' ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
                             class="px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-full transition whitespace-nowrap">
-                        Tutte le pagine
+                        Tutte
                     </button>
                     <button @click="selectedAssoc = 'Iniziativa Libertaria'; filterData()"
                             :class="selectedAssoc === 'Iniziativa Libertaria' ? 'bg-red-600 text-white shadow-sm shadow-red-600/30' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
@@ -168,6 +178,12 @@
                             class="px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-full transition whitespace-nowrap flex items-center gap-2">
                         <img src="/static/img/amicizapatisti.jpg" alt="AZ" class="w-4 h-4 rounded-full object-cover">
                         Amici Zapatisti
+                    </button>
+                    <button @click="selectedAssoc = 'Biblioteca Mauro Cancian'; filterData()"
+                            :class="selectedAssoc === 'Biblioteca Mauro Cancian' ? 'bg-amber-700 text-white shadow-sm shadow-amber-700/30' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
+                            class="px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-full transition whitespace-nowrap flex items-center gap-2">
+                        <img src="/static/img/bibliomaurocancian.jpg" alt="BMC" class="w-4 h-4 rounded-full object-cover">
+                        Biblioteca Cancian
                     </button>
                 </div>
 
@@ -357,6 +373,174 @@
             </div>
         </div>
 
+        <!-- 3. SEZIONE LE ASSOCIAZIONI & SEDE -->
+        <div x-show="!loading && currentTab === 'associations'" class="space-y-8" x-cloak>
+            
+            <!-- BANNER SEDE CONDIVISA -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-6 sm:p-10 shadow-xl border border-slate-700/50">
+                <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                    <svg class="w-80 h-80 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-600 text-white mb-4 shadow-sm">
+                        📍 Sede Unica & Spazio Comune
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold font-display tracking-tight text-white mb-3">
+                        Via Ungaresca, 3B &bull; Pordenone
+                    </h2>
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+                        Uno spazio libero e autogestito di incontro, cultura libertaria, solidarietà e mutuo soccorso a 20 minuti a piedi dal centro di Pordenone. Qui convivono le assemblee politiche, la biblioteca di studi storici, il circolo sociale e le iniziative dal basso.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Via+Ungaresca+3B+Pordenone" target="_blank" rel="noopener noreferrer"
+                           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-slate-900 font-bold text-xs sm:text-sm hover:bg-slate-100 active:scale-95 transition shadow-lg">
+                            <svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            Apri su Google Maps
+                        </a>
+                        <span class="text-xs text-slate-400 font-medium">
+                            CAP 33170 &bull; Pordenone (PN)
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INTRO DELLE TRE REALTÀ -->
+            <div class="text-center max-w-2xl mx-auto pt-2">
+                <h3 class="text-xl font-extrabold font-display text-slate-900">Tre realtà, uno spazio di libertà</h3>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1.5">
+                    Attività di mutualismo, archivio storico e mobilitazione sociale nel territorio pordenonese.
+                </p>
+            </div>
+
+            <!-- GRIGLIA DELLE 3 ASSOCIAZIONI -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- CARD 1: INIZIATIVA LIBERTARIA -->
+                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-4 mb-5">
+                            <img src="/static/img/iniziativalibertaria.jpg" alt="Iniziativa Libertaria" class="w-16 h-16 rounded-2xl object-cover border-2 border-red-100 shadow-md">
+                            <div>
+                                <h3 class="text-lg font-bold font-display text-slate-900">Iniziativa Libertaria</h3>
+                                <span class="inline-block px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-red-50 text-red-700 border border-red-200/60 mt-0.5">
+                                    Collettivo Politico & Sociale
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                            Collettivo politico e culturale attivo a Pordenone e nel Friuli Occidentale. Promuove le idee dell'anarchismo sociale e dell'antifascismo attraverso mobilitazioni per i diritti dei lavoratori, iniziative antimilitariste, ecologia sociale e assemblee di confronto aperte.
+                        </p>
+                    </div>
+
+                    <!-- Canali e Contatti -->
+                    <div class="pt-4 border-t border-slate-100 space-y-2">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">Canali & Contatti</span>
+                        
+                        <!-- Instagram IL -->
+                        <a href="https://www.instagram.com/iniziativa_libertaria" target="_blank" rel="noopener noreferrer"
+                           class="w-full inline-flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500/10 to-purple-500/10 text-pink-700 hover:from-pink-500/20 hover:to-purple-500/20 text-xs font-bold transition border border-pink-200/60 shadow-sm">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-pink-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                                <span>Instagram: @iniziativa_libertaria</span>
+                            </span>
+                            <span class="text-xs">&rarr;</span>
+                        </a>
+
+                        <!-- Facebook IL -->
+                        <a href="https://www.facebook.com/iniziativalibertaria" target="_blank" rel="noopener noreferrer"
+                           class="w-full inline-flex items-center justify-between px-3.5 py-2 rounded-xl bg-slate-50 text-slate-700 hover:bg-slate-100 text-xs font-semibold transition border border-slate-200">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                                <span>Pagina Facebook</span>
+                            </span>
+                            <span class="text-xs">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CARD 2: AMICI ZAPATISTI / CIRCOLO ZAPATA -->
+                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-4 mb-5">
+                            <img src="/static/img/amicizapatisti.jpg" alt="Amici Zapatisti" class="w-16 h-16 rounded-2xl object-cover border-2 border-emerald-100 shadow-md">
+                            <div>
+                                <h3 class="text-lg font-bold font-display text-slate-900">Circolo Zapata</h3>
+                                <span class="inline-block px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/60 mt-0.5">
+                                    Autogestione dal 1980
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                            Fondato nel 1980, il Circolo Libertario Emiliano Zapata è uno storico baluardo di autogestione e mutualismo a Pordenone. Promuove solidarietà con la ribellione indigena zapatista in Chiapas (EZLN), raccolte di mutuo soccorso concreto, cene sociali e aggregazione comunitaria.
+                        </p>
+                    </div>
+
+                    <!-- Canali e Contatti -->
+                    <div class="pt-4 border-t border-slate-100 space-y-2">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">Canali & Contatti</span>
+                        
+                        <!-- Facebook AZ -->
+                        <a href="https://www.facebook.com/amicizapatisti" target="_blank" rel="noopener noreferrer"
+                           class="w-full inline-flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-50 text-slate-700 hover:bg-slate-100 text-xs font-semibold transition border border-slate-200 shadow-sm">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                                <span>Pagina Facebook Amici Zapatisti</span>
+                            </span>
+                            <span class="text-xs">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CARD 3: BIBLIOTECA MAURO CANCIAN -->
+                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-4 mb-5">
+                            <img src="/static/img/bibliomaurocancian.jpg" alt="Biblioteca Mauro Cancian" class="w-16 h-16 rounded-2xl object-cover border-2 border-amber-100 shadow-md">
+                            <div>
+                                <h3 class="text-lg font-bold font-display text-slate-900">Biblioteca M. Cancian</h3>
+                                <span class="inline-block px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-amber-50 text-amber-900 border border-amber-200/60 mt-0.5">
+                                    Studi Libertari & Archivio
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                            Biblioteca e archivio storico intitolati alla memoria di Mauro Cancian. Custodisce migliaia di volumi, riviste d'epoca, saggi rari e documenti sul movimento operaio, l'antifascismo, il pensiero anarchico e le controculture. Aperta per consultazione, prestito e presentazioni di libri.
+                        </p>
+                    </div>
+
+                    <!-- Canali e Contatti -->
+                    <div class="pt-4 border-t border-slate-100 space-y-2">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">Canali & Contatti</span>
+                        
+                        <!-- Facebook Biblio -->
+                        <a href="https://www.facebook.com/bibliomaurocancian" target="_blank" rel="noopener noreferrer"
+                           class="w-full inline-flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-50 text-slate-700 hover:bg-slate-100 text-xs font-semibold transition border border-slate-200 shadow-sm">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                                <span>Pagina Facebook Biblioteca</span>
+                            </span>
+                            <span class="text-xs">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </main>
 
     <!-- MODALE GUIDA INSTALLAZIONE PWA -->
@@ -449,7 +633,11 @@
 
                 getAssocLogo(assocName) {
                     if (!assocName) return '/static/img/iniziativalibertaria.jpg';
-                    if (assocName.toLowerCase().includes('zapatist')) {
+                    const lower = assocName.toLowerCase();
+                    if (lower.includes('cancian') || lower.includes('biblioteca')) {
+                        return '/static/img/bibliomaurocancian.jpg';
+                    }
+                    if (lower.includes('zapatist') || lower.includes('zapata')) {
                         return '/static/img/amicizapatisti.jpg';
                     }
                     return '/static/img/iniziativalibertaria.jpg';
