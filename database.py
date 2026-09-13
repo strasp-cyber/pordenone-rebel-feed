@@ -1,10 +1,36 @@
 import sqlite3
 import os
+import re
 from typing import List, Dict, Any, Optional
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_DIR = os.path.join(BASE_DIR, "data")
 DB_PATH = os.path.join(DB_DIR, "database.db")
+
+MONTHS = {
+    'gen': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'mag': 5, 'giu': 6,
+    'lug': 7, 'ago': 8, 'set': 9, 'ott': 10, 'nov': 11, 'dic': 12
+}
+
+def parse_event_date(date_str: Optional[str], status: Optional[str] = None) -> str:
+    if not date_str:
+        return '1970-01-01'
+    s = date_str.lower()
+    year_match = re.search(r'\b(20\d\d)\b', s)
+    year = int(year_match.group(1)) if year_match else None
+    
+    m_match = re.search(r'(\d{1,2})\s+([a-z]{3})', s)
+    if m_match:
+        day = int(m_match.group(1))
+        month_abbr = m_match.group(2)
+        month = MONTHS.get(month_abbr, 1)
+        if not year:
+            if status == 'In programma':
+                year = 2026
+            else:
+                year = 2025
+        return f'{year:04d}-{month:02d}-{day:02d}'
+    return '1970-01-01'
 
 def get_connection() -> sqlite3.Connection:
     os.makedirs(DB_DIR, exist_ok=True)
@@ -37,6 +63,7 @@ def init_db():
         association TEXT NOT NULL,
         title TEXT NOT NULL,
         date_str TEXT,
+        event_date TEXT,
         location TEXT,
         status TEXT,
         participants TEXT,
@@ -44,6 +71,19 @@ def init_db():
         scraped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
     """)
+    
+    # Aggiungi colonna event_date se tabella già esistente
+    try:
+        cursor.execute("ALTER TABLE events ADD COLUMN event_date TEXT")
+    except Exception:
+        pass
+
+    # Popola event_date per tutti i record che non ce l'hanno
+    cursor.execute("SELECT id, date_str, status FROM events WHERE event_date IS NULL OR event_date = ''")
+    records = cursor.fetchall()
+    for row in records:
+        ed = parse_event_date(row["date_str"], row["status"])
+        cursor.execute("UPDATE events SET event_date = ? WHERE id = ?", (ed, row["id"]))
     
     # Tabella Log di Sincronizzazione
     cursor.execute("""
@@ -93,12 +133,14 @@ def upsert_event(event: Dict[str, Any]) -> bool:
     conn = get_connection()
     cursor = conn.cursor()
     try:
+        event_date = parse_event_date(event.get("date_str"), event.get("status"))
         cursor.execute("""
-        INSERT INTO events (association, title, date_str, location, status, participants, permalink)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO events (association, title, date_str, event_date, location, status, participants, permalink)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(permalink) DO UPDATE SET
             title = excluded.title,
             date_str = excluded.date_str,
+            event_date = excluded.event_date,
             location = excluded.location,
             status = excluded.status,
             participants = excluded.participants,
@@ -107,6 +149,7 @@ def upsert_event(event: Dict[str, Any]) -> bool:
             event.get("association"),
             event.get("title"),
             event.get("date_str"),
+            event_date,
             event.get("location"),
             event.get("status"),
             event.get("participants"),
@@ -158,7 +201,7 @@ def get_events(association: Optional[str] = None, status: Optional[str] = None, 
         query += " AND (title LIKE ? OR location LIKE ?)"
         params.extend([f"%{search}%", f"%{search}%"])
         
-    query += " ORDER BY CASE WHEN status = 'In programma' THEN 0 ELSE 1 END, id DESC"
+    query += " ORDER BY CASE WHEN status = 'In programma' THEN 0 ELSE 1 END, event_date DESC, id DESC"
     cursor.execute(query, params)
     rows = [dict(row) for row in cursor.fetchall()]
     conn.close()
